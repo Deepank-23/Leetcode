@@ -8,7 +8,7 @@ class Solution {
         
             for (int i : rooms[room]){
                 if(!vis[i]){
-                    vis[i]=1;
+                    
                     dfs(rooms,vis,i);
 
                 }
