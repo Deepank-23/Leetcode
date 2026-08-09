@@ -1,17 +1,12 @@
 class Solution {
 public:
-    int rober(vector<int>&nums,int i,vector<int>& dp){
-        if(i>=nums.size())return 0;
-        if(dp[i]!=-1)return dp[i];
-        int take = nums[i]+rober(nums,i+2,dp);
-        int skip = rober(nums,i+1,dp);
-        dp[i]=max(take,skip);
-        return *max_element(dp.begin(),dp.end());
-    }
     int rob(vector<int>& nums) {
-        int n= nums.size();
-        vector<int>dp(n,-1);
-        return rober(nums,0,dp);
-        
+        vector<int> dp(nums.size(),0);
+        for(int i=0;i< nums.size();i++){
+            if(i==0)dp[0]=nums[0];
+            else if(i==1)dp[1]=max(nums[0],nums[1]);
+            else dp[i]=max(dp[i-1],nums[i]+dp[i-2]);
+        }
+        return dp[nums.size()-1];
     }
 };
