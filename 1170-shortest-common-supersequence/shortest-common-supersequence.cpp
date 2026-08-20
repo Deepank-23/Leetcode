@@ -9,14 +9,11 @@ public:
 
             for(int i=1;i<=n;i++){
                 for(int j=1;j<=m;j++){
-                    int p = (i>0&&j>0)?dp[i-1][j-1]:0;
-                    int q = (i>0)?dp[i-1][j]:0;
-                    int r = (j>0)?dp[i][j-1]:0;
                     if(text1[i-1] == text2[j-1]){
-                        dp[i][j] = 1 + p;
+                        dp[i][j] = 1 + dp[i-1][j-1];
                     }
                     else{
-                        dp[i][j] = max(q,r);
+                        dp[i][j] = max(dp[i-1][j],dp[i][j-1]);
                     }
                 }
                 
