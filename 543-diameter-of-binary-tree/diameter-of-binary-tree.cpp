@@ -11,22 +11,29 @@
  */
 class Solution {
 public:
-     int  diameter;
-    int levels(TreeNode *root){
+    
+    int levels(TreeNode *root,map<TreeNode*,int>& dp){
         if(root== NULL)return 0;
-        int left = levels(root->left);
-        int right = levels(root->right);
+        if(dp.count(root))return dp[root];
+        int left = levels(root->left,dp);
+        int right = levels(root->right,dp);
         int level = 1+ max(left,right);
-        int mydia = left+right;
-        diameter= max(diameter,mydia);
+        dp[root]=level;
         return level;
 
     }
+    int diameter(TreeNode* root,map<TreeNode*,int>& dp){
+        if(root== NULL)return 0;
+        int left = diameter(root->left,dp);
+        int right = diameter(root->right,dp);
+        int mydia = levels(root->left,dp)+levels(root->right,dp);
+        return max(mydia,max(left,right));
+        
+    }
     int diameterOfBinaryTree(TreeNode* root) {
-
-        diameter = 0 ;
-        levels(root);
-        return diameter;
+        map<TreeNode*,int>dp;
+        return diameter(root,dp);
+       
         
     }
 };
